@@ -1,0 +1,98 @@
+<form phx-submit="search" autocomplete="off">
+  <input
+    class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
+    name="subreddits"
+    id="subreddit"
+    autofocus
+    placeholder="Comma separate subreddits..."
+    <%= if @loading, do: "disabled" %>
+  />
+</form>
+
+<section class="my-2">
+  <div class="flex">
+    <%= for sub <- @subreddits do %>
+      <div class="m-1 px-2 py-1 rounded-md bg-reddit-orange">
+        <p class="text-lg text-white"><%= sub %></p>
+      </div>
+    <% end %>
+  </div>
+  <%= if length(@subreddits) > 0 do %>
+    <button phx-click="clear" class=" mt-2 rounded outline-none shadow py-1 px-4 font-normal tracking-wider border">
+      Clear All
+    </button>
+  <% end %>
+</section>
+
+<section>
+  <%= if @loading do %>
+    <div class="flex items-center justify-center py-10">
+        <svg width="45" height="45" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#ff0000">
+          <g fill="none" fill-rule="evenodd" transform="translate(1 1)" stroke-width="2">
+              <circle cx="22" cy="22" r="6" stroke-opacity="0">
+                  <animate attributeName="r"
+                      begin="1.5s" dur="3s"
+                      values="6;22"
+                      calcMode="linear"
+                      repeatCount="indefinite" />
+                  <animate attributeName="stroke-opacity"
+                      begin="1.5s" dur="3s"
+                      values="1;0" calcMode="linear"
+                      repeatCount="indefinite" />
+                  <animate attributeName="stroke-width"
+                      begin="1.5s" dur="3s"
+                      values="2;0" calcMode="linear"
+                      repeatCount="indefinite" />
+              </circle>
+              <circle cx="22" cy="22" r="6" stroke-opacity="0">
+                  <animate attributeName="r"
+                      begin="3s" dur="3s"
+                      values="6;22"
+                      calcMode="linear"
+                      repeatCount="indefinite" />
+                  <animate attributeName="stroke-opacity"
+                      begin="3s" dur="3s"
+                      values="1;0" calcMode="linear"
+                      repeatCount="indefinite" />
+                  <animate attributeName="stroke-width"
+                      begin="3s" dur="3s"
+                      values="2;0" calcMode="linear"
+                      repeatCount="indefinite" />
+              </circle>
+              <circle cx="22" cy="22" r="8">
+                  <animate attributeName="r"
+                      begin="0s" dur="1.5s"
+                      values="6;1;2;3;4;5;6"
+                      calcMode="linear"
+                      repeatCount="indefinite" />
+              </circle>
+          </g>
+      </svg>
+    </div>
+  <% else %>
+    <%= if length(@results) < 1 && length(@subreddits) > 0 do %>
+      <p>No results found</p>
+    <% else %>
+      <div class="flex flex-col">
+        <%= for result <- @results do %>
+          <a target = "_blank" href="<%= result.url %>">
+            <div class="p-4 mt-2 border border-gray-300 rounded w-full flex">
+                <div class="w-1/4">
+                  <%= if result.thumbnail && result.thumbnail != "" && result.thumbnail != "spoiler" && result.thumbnail != "self" && result.thumbnail != "default" do %>
+                    <img class="w-32" src="<%= result.thumbnail %>"/>
+                  <% else %>
+                    <img class="w-32" src="https://www.redditinc.com/assets/images/site/reddit-logo.png"/>
+                  <% end %>
+                </div>
+                <div class="w-3/4">
+                  <h2 class="text-xl"><%= result.title %></h2>
+                  <p class="text-gray-500">from <%= result.subreddit %></p>
+                </div>
+            </div>
+          </a>
+
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+</section>
