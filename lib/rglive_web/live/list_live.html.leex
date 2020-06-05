@@ -79,9 +79,9 @@
             <div class="p-4 mt-2 border border-gray-300 rounded md:flex">
                 <div class="md:flex-shrink-0">
                   <%= if result.thumbnail && result.thumbnail != "" && result.thumbnail != "spoiler" && result.thumbnail != "self" && result.thumbnail != "default" do %>
-                    <img class="w-32 rounded" src="<%= result.thumbnail %>"/>
+                    <img class="md:w-32 w-full rounded" src="<%= result.thumbnail %>"/>
                   <% else %>
-                    <img class="w-32 rounded" src="https://www.redditinc.com/assets/images/site/reddit-logo.png"/>
+                    <img class="md:w-32 w-full rounded" src="https://www.redditinc.com/assets/images/site/reddit-logo.png"/>
                   <% end %>
                 </div>
                 <div class="mt-4 md:mt-0 md:ml-6">
