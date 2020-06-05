@@ -1,4 +1,4 @@
-<form phx-submit="search" autocomplete="off">
+<form phx-submit="search" autocomplete="off" class="mx-2">
   <input
     class="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline"
     name="subreddits"
@@ -9,7 +9,7 @@
   />
 </form>
 
-<section class="my-2">
+<section class="my-2 mx-2">
   <div class="flex">
     <%= for sub <- @subreddits do %>
       <div class="m-1 px-2 py-1 rounded-md bg-reddit-orange">
@@ -24,7 +24,7 @@
   <% end %>
 </section>
 
-<section>
+<section class="mx-2">
   <%= if @loading do %>
     <div class="flex items-center justify-center py-10">
         <svg width="45" height="45" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg" stroke="#ff0000">
@@ -76,15 +76,15 @@
       <div class="flex flex-col">
         <%= for result <- @results do %>
           <a target = "_blank" href="<%= result.url %>">
-            <div class="p-4 mt-2 border border-gray-300 rounded w-full flex">
-                <div class="w-1/4">
+            <div class="p-4 mt-2 border border-gray-300 rounded md:flex">
+                <div class="md:flex-shrink-0">
                   <%= if result.thumbnail && result.thumbnail != "" && result.thumbnail != "spoiler" && result.thumbnail != "self" && result.thumbnail != "default" do %>
-                    <img class="w-32" src="<%= result.thumbnail %>"/>
+                    <img class="w-32 rounded" src="<%= result.thumbnail %>"/>
                   <% else %>
-                    <img class="w-32" src="https://www.redditinc.com/assets/images/site/reddit-logo.png"/>
+                    <img class="w-32 rounded" src="https://www.redditinc.com/assets/images/site/reddit-logo.png"/>
                   <% end %>
                 </div>
-                <div class="w-3/4">
+                <div class="mt-4 md:mt-0 md:ml-6">
                   <h2 class="text-xl"><%= result.title %></h2>
                   <p class="text-gray-500">from <%= result.subreddit %></p>
                 </div>
